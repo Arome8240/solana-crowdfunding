@@ -1,9 +1,8 @@
 use anchor_lang::prelude::*;
 
-use crate::{
-    constants::ANCHOR_DESCRIMINATOR_SIZE, errors::ErrorCode::AlreadyInitialized,
-    states::ProgramState,
-};
+use crate::constants::ANCHOR_DISCRIMINATOR_SIZE;
+use crate::errors::ErrorCode::AlreadyInitialized;
+use crate::states::ProgramState;
 
 pub fn initialize(ctx: Context<InitializeCtx>) -> Result<()> {
     let state = &mut ctx.accounts.program_state;
@@ -23,11 +22,12 @@ pub fn initialize(ctx: Context<InitializeCtx>) -> Result<()> {
 
 #[derive(Accounts)]
 pub struct InitializeCtx<'info> {
-    #[account(init,
-      payer = deployer,
-      space = ANCHOR_DESCRIMINATOR_SIZE + ProgramState::INIT_SPACE,
-      seeds = [b"program_state"],
-      bump
+    #[account(
+        init,
+        payer = deployer,
+        space = ANCHOR_DISCRIMINATOR_SIZE + ProgramState::INIT_SPACE,
+        seeds = [b"program_state"],
+        bump
     )]
     pub program_state: Account<'info, ProgramState>,
 

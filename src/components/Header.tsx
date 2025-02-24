@@ -26,74 +26,18 @@ export default function Header() {
     <header className="shadow-md fixed w-full top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-green-600">
-          Fundus<span className="text-white">Crowd</span>
+          Sol<span className="text-white">Fund</span>
         </Link>
 
-        {/* Static Navigation */}
-        {program && publicKey && (
-          <nav className="hidden md:flex space-x-6 items-center">
-            <Link
-              href="/account"
-              className="text-white hover:text-green-600 flex items-center space-x-1 transition duration-300"
-            >
-              <FaUserCircle className="text-white hover:text-green-600" />
-              <span>Account</span>
-            </Link>
-          </nav>
-        )}
-
         {isMounted && (
-          <div className="hidden md:inline-block">
+          <div className="">
             {/* Static Wallet Button */}
             <div className="flex gap-2 items-center">
               <CustomWalletButton />
             </div>
           </div>
         )}
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-gray-700 focus:outline-none"
-        >
-          {isOpen ? (
-            <FaTimes className="w-6 h-6" />
-          ) : (
-            <FaBars className="w-6 h-6" />
-          )}
-        </button>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <nav className="md:hidden bg-white shadow-md py-4">
-          <div className="container mx-auto px-6 space-y-4">
-            {program && publicKey && (
-              <>
-                <Link
-                  href="/account"
-                  className="text-gray-700 hover:text-green-600 flex items-center space-x-2 transition duration-300"
-                >
-                  <FaUserCircle />
-                  <span>Account</span>
-                </Link>
-                <Link
-                  href="/create"
-                  className="text-gray-700 hover:text-green-600 flex items-center space-x-2 transition duration-300"
-                >
-                  <FaPlusCircle />
-                  <span>Create</span>
-                </Link>
-              </>
-            )}
-            {isMounted && (
-              <div>
-                <CustomWalletButton />
-              </div>
-            )}
-          </div>
-        </nav>
-      )}
     </header>
   );
 }

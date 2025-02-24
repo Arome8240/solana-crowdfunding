@@ -37,15 +37,15 @@ const CustomWalletButton = () => {
           {connected && (
             <>
               {/* Account Section */}
-              <div className="p-2 text-gray-800 text-sm border-b">
+              {/* <div className="p-2 text-gray-800 text-sm border-b">
                 <p className="font-semibold">Account</p>
                 <p className="text-xs truncate">{walletAddress}</p>
-              </div>
+              </div> */}
 
               <div className="gap-4" style={{ gap: 4 }}>
                 <Link href="/dashboard">
                   <button
-                    className="w-full px-3 py-2 bg-[#512da8] hover:bg-primary text-sm text-gray-700 hover:bg-white rounded-md"
+                    className="w-full px-3 py-4 bg-[#512da8] hover:bg-[#131921] text-sm text-white rounded-md"
                     onClick={copyToClipboard}
                   >
                     Dashboard
@@ -53,7 +53,7 @@ const CustomWalletButton = () => {
                 </Link>
 
                 <button
-                  className="w-full px-3 py-4 text-left font-bold mt-1 bg-[#512da8] hover:bg-primary text-sm text-white hover:bg-white rounded-md"
+                  className="w-full px-3 py-4 text-left font-bold mt-1 bg-[#512da8] hover:bg-[#131921] text-sm text-white rounded-md"
                   onClick={copyToClipboard}
                 >
                   📋 Copy Address

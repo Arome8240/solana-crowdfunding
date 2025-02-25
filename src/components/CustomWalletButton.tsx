@@ -6,6 +6,7 @@ import {
 } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const CustomWalletButton = () => {
   const { publicKey, connected } = useWallet();
@@ -17,7 +18,7 @@ const CustomWalletButton = () => {
   const copyToClipboard = async () => {
     if (walletAddress) {
       await navigator.clipboard.writeText(walletAddress);
-      alert("Address copied to clipboard!");
+      toast.success("Address copied to clipboard!");
     }
   };
 
@@ -44,16 +45,13 @@ const CustomWalletButton = () => {
 
               <div className="gap-4" style={{ gap: 4 }}>
                 <Link href="/dashboard">
-                  <button
-                    className="w-full px-3 py-4 bg-[#512da8] hover:bg-[#131921] text-sm text-white rounded-md"
-                    onClick={copyToClipboard}
-                  >
+                  <button className="w-full px-5 font-bold text-left py-4 bg-[#512da8] hover:bg-[#131921] text-base text-white rounded-md">
                     Dashboard
                   </button>
                 </Link>
 
                 <button
-                  className="w-full px-3 py-4 text-left font-bold mt-1 bg-[#512da8] hover:bg-[#131921] text-sm text-white rounded-md"
+                  className="w-full px-5 py-4 text-left font-bold mt-1 bg-[#512da8] hover:bg-[#131921] text-base text-white rounded-md"
                   onClick={copyToClipboard}
                 >
                   📋 Copy Address

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import AppWalletProvider from "@/components/AppWalletProvider";
 import { ReactQueryProvider } from "./react-query-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,12 @@ export default function RootLayout({
         <ReactQueryProvider>
           <AppWalletProvider>
             <Header />
-            {children}
+            <main className="max-w-6xl mx-auto min-h-screen">
+              <div className=" h-24" />
+              {children}
+              <div className=" h-24" />
+            </main>
+            <Toaster toastOptions={{}} position="top-center" />
           </AppWalletProvider>
         </ReactQueryProvider>
       </body>

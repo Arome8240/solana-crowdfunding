@@ -10,6 +10,7 @@ import idl from "../../anchor/target/idl/anchor.json";
 import { Campaign, ProgramState, Transaction } from "@/utils/interfaces";
 import { useGlobalStore } from "@/store";
 import { getClusterURL } from "@/utils/helper";
+import { toast } from "sonner";
 
 let tx: any;
 const CLUSTER: string = process.env.NEXT_PUBLIC_CLUSTER || "localhost";
@@ -21,7 +22,7 @@ export const getProvider = (
   sendTransaction: any
 ): Program<Anchor> | null => {
   if (!publicKey || !signTransaction) {
-    console.error("Wallet not connected or missing signTransaction");
+    toast.warning("Wallet not connected or missing signTransaction");
     return null;
   }
 

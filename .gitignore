@@ -20,6 +20,8 @@
 #anchor
 /anchor/.anchor
 /anchor/.DS_Store
+/anchor/target/debug
+/anchor/target/release
 /anchor/**/*.rs.bk
 /anchor/node_modules
 /anchor/test-ledger

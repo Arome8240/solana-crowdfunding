@@ -37,12 +37,6 @@ const CustomWalletButton = () => {
         <div className="absolute right-0 mt-2 w-64 bg-white border rounded-md shadow-lg p-2">
           {connected && (
             <>
-              {/* Account Section */}
-              {/* <div className="p-2 text-gray-800 text-sm border-b">
-                <p className="font-semibold">Account</p>
-                <p className="text-xs truncate">{walletAddress}</p>
-              </div> */}
-
               <div className="gap-4" style={{ gap: 4 }}>
                 <Link href="/dashboard">
                   <button className="w-full px-5 font-bold text-left py-4 bg-[#512da8] hover:bg-[#131921] text-base text-white rounded-md">

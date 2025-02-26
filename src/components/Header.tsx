@@ -21,7 +21,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="shadow-md fixed w-full top-0 z-50">
+    <header className="shadow-md fixed w-full bg-[#102A43] top-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-green-600">
           Sol<span className="text-white">Fund</span>

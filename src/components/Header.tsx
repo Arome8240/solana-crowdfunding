@@ -3,8 +3,6 @@ import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getProvider } from "@/services/blockchain";
-import { FaUserCircle, FaPlusCircle, FaBars, FaTimes } from "react-icons/fa";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import CustomWalletButton from "./CustomWalletButton";
 
 export default function Header() {

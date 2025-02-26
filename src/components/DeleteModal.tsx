@@ -1,59 +1,63 @@
-import { deleteCampaign, fetchCampaignDetails, getProvider } from '@/services/blockchain'
-import { globalActions } from '@/store/globalSlices'
-import { Campaign, RootState } from '@/utils/interfaces'
-import { useWallet } from '@solana/wallet-adapter-react'
-import React, { useMemo } from 'react'
-import { FaTimes, FaTrashAlt } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+import {
+  deleteCampaign,
+  fetchCampaignDetails,
+  getProvider,
+} from "@/services/blockchain";
+// import { globalActions } from '@/store/globalSlices'
+import { Campaign, RootState } from "@/utils/interfaces";
+import { useWallet } from "@solana/wallet-adapter-react";
+import React, { useMemo } from "react";
+import { FaTimes, FaTrashAlt } from "react-icons/fa";
+// import { useDispatch, useSelector } from 'react-redux'
+import { toast } from "react-toastify";
 
 const DeleteModal = ({
   campaign,
   pda,
 }: {
-  campaign: Campaign
-  pda: string
+  campaign: Campaign;
+  pda: string;
 }) => {
-  const { publicKey, sendTransaction, signTransaction } = useWallet()
-  const { delModal } = useSelector((states: RootState) => states.globalStates)
+  const { publicKey, sendTransaction, signTransaction } = useWallet();
+  //const { delModal } = useSelector((states: RootState) => states.globalStates)
 
-  const { setDelModal } = globalActions
-  const dispatch = useDispatch()
+  //const { setDelModal } = globalActions
+  //const dispatch = useDispatch()
 
   const program = useMemo(
     () => getProvider(publicKey, signTransaction, sendTransaction),
     [publicKey, signTransaction, sendTransaction]
-  )
+  );
 
   const handleDelete = async () => {
-    if (!publicKey) return toast.warn('Please connect wallet')
+    if (!publicKey) return toast.warn("Please connect wallet");
 
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
         try {
-          const tx: any = await deleteCampaign(program!, publicKey!, pda!)
+          const tx: any = await deleteCampaign(program!, publicKey!, pda!);
 
-          await fetchCampaignDetails(program!, pda)
-          dispatch(setDelModal('scale-0'))
-          
-          console.log(tx)
-          resolve(tx)
+          await fetchCampaignDetails(program!, pda);
+          // dispatch(setDelModal('scale-0'))
+
+          console.log(tx);
+          resolve(tx);
         } catch (error) {
-          reject(error)
+          reject(error);
         }
       }),
       {
-        pending: 'Approve transaction...',
-        success: 'Transaction successful 👌',
-        error: 'Encountered error 🤯',
+        pending: "Approve transaction...",
+        success: "Transaction successful 👌",
+        error: "Encountered error 🤯",
       }
-    )
-  }
+    );
+  };
 
   return (
     <div
       className={`fixed top-0 left-0 w-screen h-screen flex items-center justify-center
-      bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${delModal}`}
+      bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 `}
     >
       <div className="bg-white shadow-lg shadow-slate-900 rounded-xl w-11/12 md:w-2/5 p-6">
         <div className="flex flex-row justify-between items-center mb-6">
@@ -63,7 +67,7 @@ const DeleteModal = ({
           <button
             type="button"
             className="border-0 bg-transparent focus:outline-none"
-            onClick={() => dispatch(setDelModal('scale-0'))}
+            //onClick={() => dispatch(setDelModal('scale-0'))}
           >
             <FaTimes className="text-gray-400" />
           </button>
@@ -90,7 +94,7 @@ const DeleteModal = ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DeleteModal
+export default DeleteModal;

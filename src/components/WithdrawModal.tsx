@@ -3,40 +3,40 @@ import {
   fetchCampaignDetails,
   getProvider,
   withdrawFromCampaign,
-} from '@/services/blockchain'
-import { globalActions } from '@/store/globalSlices'
-import { Campaign, RootState } from '@/utils/interfaces'
-import { useWallet } from '@solana/wallet-adapter-react'
-import React, { useMemo, useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+} from "@/services/blockchain";
+//import { globalActions } from '@/store/globalSlices'
+import { Campaign, RootState } from "@/utils/interfaces";
+import { useWallet } from "@solana/wallet-adapter-react";
+import React, { useMemo, useState } from "react";
+import { FaTimes } from "react-icons/fa";
+// import { useDispatch, useSelector } from 'react-redux'
+import { toast } from "sonner";
 
 const WithdrawModal = ({
   campaign,
   pda,
 }: {
-  campaign: Campaign
-  pda: string
+  campaign: Campaign;
+  pda: string;
 }) => {
-  const [amount, setAmount] = useState('')
-  const { withdrawModal } = useSelector(
-    (states: RootState) => states.globalStates
-  )
+  const [amount, setAmount] = useState("");
+  // const { withdrawModal } = useSelector(
+  //   (states: RootState) => states.globalStates
+  // )
 
-  const { publicKey, sendTransaction, signTransaction } = useWallet()
+  const { publicKey, sendTransaction, signTransaction } = useWallet();
 
   const program = useMemo(
     () => getProvider(publicKey, signTransaction, sendTransaction),
     [publicKey, signTransaction, sendTransaction]
-  )
+  );
 
-  const { setWithdrawModal } = globalActions
-  const dispatch = useDispatch()
+  // const { setWithdrawModal } = globalActions
+  // const dispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!program || !publicKey || !amount) return
+    e.preventDefault();
+    if (!program || !publicKey || !amount) return;
 
     await toast.promise(
       new Promise<void>(async (resolve, reject) => {
@@ -46,31 +46,31 @@ const WithdrawModal = ({
             publicKey!,
             pda,
             Number(amount)
-          )
+          );
 
-          setAmount('')
-          await fetchCampaignDetails(program!, pda)
-          await fetchAllWithsrawals(program!, pda)
-          
-          dispatch(setWithdrawModal('scale-0'))
-          console.log(tx)
-          resolve(tx)
+          setAmount("");
+          await fetchCampaignDetails(program!, pda);
+          await fetchAllWithsrawals(program!, pda);
+
+          //dispatch(setWithdrawModal('scale-0'))
+          console.log(tx);
+          resolve(tx);
         } catch (error) {
-          reject(error)
+          reject(error);
         }
       }),
       {
-        pending: 'Approve transaction...',
-        success: 'Transaction successful 👌',
-        error: 'Encountered error 🤯',
+        loading: "Approve transaction...",
+        success: "Transaction successful 👌",
+        error: "Encountered error 🤯",
       }
-    )
-  }
+    );
+  };
 
   return (
     <div
       className={`fixed top-0 left-0 w-screen h-screen flex items-center justify-center
-      bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300 ${withdrawModal}`}
+      bg-black bg-opacity-50 transform z-[3000] transition-transform duration-300`}
     >
       <div className="bg-white shadow-lg shadow-slate-900 rounded-xl w-11/12 md:w-2/5 h-7/12 p-6">
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ const WithdrawModal = ({
             <button
               type="button"
               className="border-0 bg-transparent focus:outline-none"
-              onClick={() => dispatch(setWithdrawModal('scale-0'))}
+              // onClick={() => dispatch(setWithdrawModal('scale-0'))}
             >
               <FaTimes className="text-gray-400" />
             </button>
@@ -96,9 +96,9 @@ const WithdrawModal = ({
               )} SOL available)`}
               value={amount}
               onChange={(e) => {
-                const value = e.target.value
+                const value = e.target.value;
                 if (/^\d*\.?\d{0,2}$/.test(value)) {
-                  setAmount(value)
+                  setAmount(value);
                 }
               }}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
@@ -113,7 +113,7 @@ const WithdrawModal = ({
               type="submit"
               disabled={!amount}
               className={`w-full bg-green-600 hover:bg-green-700 ${
-                !amount ? 'opacity-50 cursor-not-allowed' : ''
+                !amount ? "opacity-50 cursor-not-allowed" : ""
               } text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2`}
             >
               Withdraw
@@ -122,7 +122,7 @@ const WithdrawModal = ({
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WithdrawModal
+export default WithdrawModal;

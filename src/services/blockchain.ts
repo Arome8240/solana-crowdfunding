@@ -5,8 +5,9 @@ import {
   SystemProgram,
   TransactionSignature,
 } from "@solana/web3.js";
-import { Anchor } from "../../anchor/target/types/anchor";
-import idl from "../../anchor/target/idl/anchor.json";
+import { Anchor } from "@project/anchor/target/types/anchor";
+//import idl from "../../anchor/target/idl/anchor.json";
+import idl from "@project/anchor/target/idl/anchor.json";
 import { Campaign, ProgramState, Transaction } from "@/utils/interfaces";
 import { useGlobalStore } from "@/store";
 import { getClusterURL } from "@/utils/helper";

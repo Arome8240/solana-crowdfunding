@@ -10,8 +10,7 @@ import {
   fetchCampaignDetails,
   getProvider,
 } from "@/services/blockchain";
-// import { globalActions } from '@/store/globalSlices'
-// import { useDispatch } from 'react-redux'
+import { useGlobalStore } from "@/store"; // Zustand store
 
 const CampaignDonate: React.FC<{ campaign: Campaign; pda: string }> = ({
   campaign,
@@ -19,8 +18,7 @@ const CampaignDonate: React.FC<{ campaign: Campaign; pda: string }> = ({
 }) => {
   const { publicKey, sendTransaction, signTransaction } = useWallet();
   const [amount, setAmount] = useState("");
-  //const { setWithdrawModal, setDelModal } = globalActions
-  //const dispatch = useDispatch()
+  const { setWithdrawModal, setDelModal } = useGlobalStore();
 
   const program = useMemo(
     () => getProvider(publicKey, signTransaction, sendTransaction),
@@ -131,7 +129,7 @@ const CampaignDonate: React.FC<{ campaign: Campaign; pda: string }> = ({
                 type="button"
                 className="bg-green-600 hover:bg-green-700 text-white
               font-semibold py-2 px-4 flex-1 flex items-center justify-center"
-                //onClick={() => dispatch(setDelModal('scale-100'))}
+                onClick={() => setDelModal("scale-100")}
               >
                 <FaTrashAlt />
                 Delete
@@ -142,7 +140,7 @@ const CampaignDonate: React.FC<{ campaign: Campaign; pda: string }> = ({
               className="bg-transparent hover:bg-green-600 text-green-600 hover:text-white
               font-semibold py-2 px-4 flex-1 md:rounded-r-lg flex items-center justify-center
               border border-green-600 hover:border-transparent"
-              // onClick={() => dispatch(setWithdrawModal('scale-100'))}
+              onClick={() => setWithdrawModal("scale-100")}
             >
               <FaDollarSign />
               Payout

@@ -4,12 +4,11 @@ import {
   getProvider,
   withdrawFromCampaign,
 } from "@/services/blockchain";
-//import { globalActions } from '@/store/globalSlices'
-import { Campaign, RootState } from "@/utils/interfaces";
+import { useGlobalStore } from "@/store"; // Zustand store
+import { Campaign } from "@/utils/interfaces";
 import { useWallet } from "@solana/wallet-adapter-react";
 import React, { useMemo, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-// import { useDispatch, useSelector } from 'react-redux'
 import { toast } from "sonner";
 
 const WithdrawModal = ({
@@ -20,9 +19,9 @@ const WithdrawModal = ({
   pda: string;
 }) => {
   const [amount, setAmount] = useState("");
-  // const { withdrawModal } = useSelector(
-  //   (states: RootState) => states.globalStates
-  // )
+
+  // Access Zustand store
+  const { withdrawals, setWithdrawals } = useGlobalStore();
 
   const { publicKey, sendTransaction, signTransaction } = useWallet();
 
@@ -30,9 +29,6 @@ const WithdrawModal = ({
     () => getProvider(publicKey, signTransaction, sendTransaction),
     [publicKey, signTransaction, sendTransaction]
   );
-
-  // const { setWithdrawModal } = globalActions
-  // const dispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,10 +45,11 @@ const WithdrawModal = ({
           );
 
           setAmount("");
-          await fetchCampaignDetails(program!, pda);
-          await fetchAllWithsrawals(program!, pda);
 
-          //dispatch(setWithdrawModal('scale-0'))
+          // Fetch updated withdrawals and update Zustand store
+          const updatedWithdrawals = await fetchAllWithsrawals(program!, pda);
+          setWithdrawals(updatedWithdrawals);
+
           console.log(tx);
           resolve(tx);
         } catch (error) {
@@ -81,7 +78,7 @@ const WithdrawModal = ({
             <button
               type="button"
               className="border-0 bg-transparent focus:outline-none"
-              // onClick={() => dispatch(setWithdrawModal('scale-0'))}
+              onClick={() => setWithdrawals([])} // Close modal logic (assuming emptying withdrawals hides it)
             >
               <FaTimes className="text-gray-400" />
             </button>

@@ -22,6 +22,7 @@
 /anchor/.DS_Store
 /anchor/target/debug
 /anchor/target/release
+/anchor/target/sbf-solana-solana
 /anchor/**/*.rs.bk
 /anchor/node_modules
 /anchor/test-ledger
